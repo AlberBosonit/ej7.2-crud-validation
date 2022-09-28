@@ -1,6 +1,6 @@
-package com.example.ej7.crudvalidation.Persona.DTOS;
+package com.example.ej7.crudvalidation.persona.infraestructure.dto;
 
-import com.example.ej7.crudvalidation.Persona.Persona;
+import com.example.ej7.crudvalidation.persona.domain.Persona;
 import lombok.Getter;
 import java.util.Date;
 
