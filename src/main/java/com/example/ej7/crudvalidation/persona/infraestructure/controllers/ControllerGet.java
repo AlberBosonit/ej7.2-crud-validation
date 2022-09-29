@@ -1,5 +1,6 @@
 package com.example.ej7.crudvalidation.persona.infraestructure.controllers;
 
+import com.example.ej7.crudvalidation.exceptions.EntityNotFoundException;
 import com.example.ej7.crudvalidation.persona.domain.services.PersonaService;
 import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoOut;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,9 @@ public class ControllerGet {
     private PersonaService personaService;
 
     @GetMapping("/{id}")
-    public PersonaDtoOut mostrarPersonaPorId(@PathVariable("id") Integer id) {
-        try {
-            return new PersonaDtoOut(personaService.getPersonaById(id)); //Si la persona no existe se lanza excepcion
-        } catch (FileNotFoundException personaNoEncontrada) {
-            System.out.println("No se ha encontrado la persona con este id: " + id);
-            return null;
-        }
+    public PersonaDtoOut mostrarPersonaPorId(@PathVariable("id") Integer id) throws EntityNotFoundException, FileNotFoundException {
+
+            return new PersonaDtoOut(personaService.getPersonaById(id));
     }
     @GetMapping("/usuario/{usuario}")
     public List<PersonaDtoOut> mostrarPersonaPorNombre(@PathVariable("usuario") String usuario) {

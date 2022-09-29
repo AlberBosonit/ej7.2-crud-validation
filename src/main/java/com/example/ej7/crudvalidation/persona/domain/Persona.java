@@ -11,7 +11,7 @@ import java.util.Date;
 @Setter
 @Entity //Indicamos a JPA que esta clase es una entidad
 @Table(name="persona") //Indicamos a JPA a que tabla apunta esta entidad
-public class Persona implements java.io.Serializable {
+public class Persona {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

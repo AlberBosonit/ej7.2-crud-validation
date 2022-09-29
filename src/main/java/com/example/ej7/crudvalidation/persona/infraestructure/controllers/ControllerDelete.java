@@ -1,5 +1,6 @@
 package com.example.ej7.crudvalidation.persona.infraestructure.controllers;
 
+import com.example.ej7.crudvalidation.exceptions.EntityNotFoundException;
 import com.example.ej7.crudvalidation.persona.domain.services.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +17,7 @@ public class ControllerDelete {
     private PersonaService personaService;
 
     @DeleteMapping("/{id}")
-    public void borrarPersona(@PathVariable("id") Integer id) {
+    public void borrarPersona(@PathVariable("id") Integer id) throws EntityNotFoundException {
         personaService.deletePersona(id);
     }
 }

@@ -4,7 +4,7 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class PersonaDtoIn implements java.io.Serializable {
+public class PersonaDtoIn {
 
     private final Integer id_persona;
     private final String usuario;

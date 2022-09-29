@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Date;
 
 @Getter
-public class PersonaDtoOut implements java.io.Serializable {
+public class PersonaDtoOut {
 
     private final Integer id_persona;
     private final String usuario;

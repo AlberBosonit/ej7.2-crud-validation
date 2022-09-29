@@ -1,5 +1,6 @@
 package com.example.ej7.crudvalidation.persona.infraestructure.controllers;
 
+import com.example.ej7.crudvalidation.exceptions.UnprocessableEntityException;
 import com.example.ej7.crudvalidation.persona.domain.Persona;
 import com.example.ej7.crudvalidation.persona.domain.services.PersonaService;
 import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoIn;
@@ -17,7 +18,7 @@ public class ControllerPost {
     private PersonaService personaService;
 
     @PostMapping
-    public void insertPersona(@RequestBody PersonaDtoIn persona){
+    public void insertPersona(@RequestBody PersonaDtoIn persona) throws UnprocessableEntityException {
         personaService.addPersona(new Persona(persona));
     }
 }
