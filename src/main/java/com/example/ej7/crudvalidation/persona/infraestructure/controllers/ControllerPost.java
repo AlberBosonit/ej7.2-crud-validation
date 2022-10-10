@@ -4,6 +4,7 @@ import com.example.ej7.crudvalidation.exceptions.UnprocessableEntityException;
 import com.example.ej7.crudvalidation.persona.domain.Persona;
 import com.example.ej7.crudvalidation.persona.domain.services.PersonaService;
 import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoIn;
+import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,8 +19,8 @@ public class ControllerPost {
     private PersonaService personaService;
 
     @PostMapping
-    public void insertPersona(@RequestBody PersonaDtoIn persona) throws UnprocessableEntityException {
-        personaService.addPersona(new Persona(persona));
+    public PersonaDtoOut insertPersona(@RequestBody PersonaDtoIn persona) throws UnprocessableEntityException {
+        return personaService.addPersona(new Persona(persona));
     }
 }
 /*
@@ -47,6 +48,20 @@ public class ControllerPost {
     "city":"Madrid",
     "active":true,
     "created_date":"2022-09-01",
+    "imagen_url":"https://loquesea.com",
+    "termination_date":null
+}
+
+{
+    "usuario":"empleado3",
+    "password":"regreg",
+    "name":"Ernesto",
+    "surname":"Martínez",
+    "company_email":"Ernesto.Martínez@nissan.com",
+    "personal_email":"Martínez@gmail.com",
+    "city":"Segovia",
+    "active":true,
+    "created_date":"2022-28-03",
     "imagen_url":"https://loquesea.com",
     "termination_date":null
 }

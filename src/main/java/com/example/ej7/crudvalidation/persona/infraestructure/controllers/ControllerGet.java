@@ -3,11 +3,9 @@ package com.example.ej7.crudvalidation.persona.infraestructure.controllers;
 import com.example.ej7.crudvalidation.exceptions.EntityNotFoundException;
 import com.example.ej7.crudvalidation.persona.domain.services.PersonaService;
 import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoOut;
+import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoOutStudentProfesor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -20,17 +18,23 @@ public class ControllerGet {
     private PersonaService personaService;
 
     @GetMapping("/{id}")
-    public PersonaDtoOut mostrarPersonaPorId(@PathVariable("id") Integer id) throws EntityNotFoundException, FileNotFoundException {
-
-            return new PersonaDtoOut(personaService.getPersonaById(id));
+    public PersonaDtoOutStudentProfesor mostrarPersonaPorId(@RequestParam(name = "outputType",defaultValue = "simple") String ouputType, @PathVariable("id") String id) throws EntityNotFoundException, FileNotFoundException {
+        return ouputType.equals("full")?
+                personaService.getPersonaByIdFull(id):
+                personaService.getPersonaById(id);
     }
+
     @GetMapping("/usuario/{usuario}")
-    public List<PersonaDtoOut> mostrarPersonaPorNombre(@PathVariable("usuario") String usuario) {
-        return personaService.getPeopleByUsuarioAttribute(usuario);
+    public List<PersonaDtoOutStudentProfesor> mostrarPersonaPorNombre(@RequestParam(name = "outputType",defaultValue = "simple") String ouputType,@PathVariable("usuario") String usuario) {
+        return ouputType.equals("full")?
+                personaService.getPeopleByUsuarioAttributeFull(usuario):
+                personaService.getPeopleByUsuarioAttribute(usuario);
     }
     @GetMapping("/all")
-    public List<PersonaDtoOut> mostrarTodasPersonas() {
-        return personaService.getAllThePeople();
+    public List<PersonaDtoOutStudentProfesor> mostrarTodasPersonas(@RequestParam(name = "outputType",defaultValue = "simple") String ouputType) {
+        return ouputType.equals("full")?
+                personaService.getAllThePeopleFull():
+                personaService.getAllThePeople();
     }
 }
 

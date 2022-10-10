@@ -1,13 +1,13 @@
 package com.example.ej7.crudvalidation.persona.infraestructure.dto;
 
 import com.example.ej7.crudvalidation.persona.domain.Persona;
-import lombok.Getter;
+import lombok.Data;
 import java.util.Date;
 
-@Getter
-public class PersonaDtoOut {
+@Data
+public class PersonaDtoOut extends PersonaDtoOutStudentProfesor{
 
-    private final Integer id_persona;
+    private final String id_persona;
     private final String usuario;
     private final String name;
     private final String surname;

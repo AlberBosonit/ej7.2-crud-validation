@@ -1,17 +1,19 @@
 package com.example.ej7.crudvalidation.persona.domain.services;
 
-import com.example.ej7.crudvalidation.exceptions.CustomError;
+import com.example.ej7.crudvalidation.estudiante.domain.Student;
+import com.example.ej7.crudvalidation.estudiante.infraestructure.repository.StudentRepository;
 import com.example.ej7.crudvalidation.exceptions.EntityNotFoundException;
 import com.example.ej7.crudvalidation.exceptions.UnprocessableEntityException;
 import com.example.ej7.crudvalidation.persona.domain.Persona;
-import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoIn;
-import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoOut;
+import com.example.ej7.crudvalidation.persona.infraestructure.dto.*;
 import com.example.ej7.crudvalidation.persona.infraestructure.repository.PersonaRepository;
+import com.example.ej7.crudvalidation.profesor.domain.Profesor;
+import com.example.ej7.crudvalidation.profesor.infraestructure.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -21,54 +23,160 @@ public class PersonaServiceImpl implements PersonaService {
     @Autowired
     PersonaRepository personaRepository;
 
+    @Autowired
+    StudentRepository studentRepository;
+
+    @Autowired
+    ProfesorRepository profesorRepository;
+
     @Override
-    public void addPersona(Persona persona) throws UnprocessableEntityException {
-        if (checkPerson(persona))
+    public PersonaDtoOut addPersona(Persona persona) throws UnprocessableEntityException {
+        if (checkPerson(persona)) {
             personaRepository.save(persona);
+            return new PersonaDtoOut(persona);
+        }
+        throw new UnprocessableEntityException("No se ha podido añadir la persona");
     }
 
     @Override
-    public PersonaDtoOut modifyPersona(Integer id, PersonaDtoIn persona) throws UnprocessableEntityException, EntityNotFoundException {
+    public PersonaDtoOut modifyPersona(String id, PersonaDtoIn persona) throws UnprocessableEntityException, EntityNotFoundException {
         Persona person = new Persona(persona);
         if (checkPerson(person)) {
-            Integer ident = getPersonaById(id).getId_persona();
-            person.setId_persona(ident);
+            Persona personaConId = personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe esa persona"));
+            person.setId_persona(personaConId.getId_persona());
             personaRepository.save(person);
             return new PersonaDtoOut(person);
         }
-        return null;
+        throw new EntityNotFoundException("Ese registro no existe.");
     }
 
     @Override
-    public void deletePersona(Integer id) throws EntityNotFoundException {
+    public void deletePersona(String id) throws EntityNotFoundException {
         try {
             personaRepository.deleteById(id);
         } catch (EmptyResultDataAccessException exc) {
-            throw new EntityNotFoundException(new CustomError(new Date(System.currentTimeMillis()), 404, "Ese registro no existe."));
+            throw new EntityNotFoundException("Ese registro no existe.");
         }
     }
 
     @Override
-    public Persona getPersonaById(Integer id) throws EntityNotFoundException {
-        return personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(new CustomError(new Date(System.currentTimeMillis()), 404, "Ese registro no existe.")));
+    public PersonNoStudentNoProfesor getPersonaById(String id) throws EntityNotFoundException {
+        return new PersonNoStudentNoProfesor(personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe esa persona")));
     }
 
     @Override
-    public List<PersonaDtoOut> getPeopleByUsuarioAttribute(String usuario) {
-        List<Persona> personasRepository = (List<Persona>) personaRepository.findAll();
-        List<PersonaDtoOut> personasConEseUsuario = new ArrayList<>();
+    public PersonaDtoOutStudentProfesor getPersonaByIdFull(String id) throws EntityNotFoundException {
+        Persona persona = personaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Ese registro no existe."));
+        String nadaEstuProfe = checkType(id);
+        return switch (nadaEstuProfe) {
+            case "student" -> new PersonaDtoOutStudent(encontrarEstudiantePorIdPersona(id));
+            case "profesor" -> new PersonaDtoOutProfesor(encontrarProfePorIdPersona(id));
+            default -> new PersonNoStudentNoProfesor(persona);
+        };
+    }
+
+    private Student encontrarEstudiantePorIdPersona(String id) {
+        List<Student> estudiantes = studentRepository.findAll().stream().toList();
+        int i = 0;
+        do {
+            if (estudiantes.get(i).getPersona().getId_persona().equals(id))
+                return estudiantes.get(i);
+            else
+                i++;
+        } while (i < estudiantes.size());
+        return null;
+    }
+
+    private Profesor encontrarProfePorIdPersona(String id) {
+        List<Profesor> profesores = profesorRepository.findAll().stream().toList();
+        int i = 0;
+        do {
+            if (profesores.get(i).getPersona().getId_persona().equals(id))
+                return profesores.get(i);
+            else
+                i++;
+        } while (i < profesores.size());
+        return null;
+    }
+
+    private String checkType(String id) {
+        List<Student> estudiantes = studentRepository.findAll().stream().toList();
+        int i = 0;
+        if (!estudiantes.isEmpty()) {
+            do {
+                if (estudiantes.get(i).getPersona().getId_persona().equals(id))
+                    return "student";
+                else
+                    i++;
+            } while (i < estudiantes.size());
+        }
+        List<Profesor> profesores = profesorRepository.findAll().stream().toList();
+        i = 0;
+        if (!profesores.isEmpty()) {
+            do {
+                if (profesores.get(i).getPersona().getId_persona().equals(id))
+                    return "profesor";
+                else
+                    i++;
+            } while (i < profesores.size());
+        }
+        return "";
+    }
+
+    @Override
+    public List<PersonaDtoOutStudentProfesor> getPeopleByUsuarioAttributeFull(String usuario) {
+        List<Persona> personasRepository = personaRepository.findAll();
+        List<Persona> personasConEseUsuario = new ArrayList<>();
+        List<PersonaDtoOutStudentProfesor> listaADevolver = new ArrayList<>();
         if (!personasRepository.isEmpty()) {
             Stream<Persona> personaStream = personasRepository.stream();
             personasConEseUsuario = personaStream.filter(person -> person.getUsuario().equals(usuario))
-                    .map(PersonaDtoOut::new).toList();
+                    .toList();
         }
-        return personasConEseUsuario;
+        for (Persona per : personasConEseUsuario) {
+            String id = per.getId_persona();
+            String nadaEstuProfe = checkType(id);
+            switch (nadaEstuProfe) {
+                case "student" -> listaADevolver.add(new PersonaDtoOutStudent(encontrarEstudiantePorIdPersona(id)));
+                case "profesor" -> listaADevolver.add(new PersonaDtoOutProfesor(encontrarProfePorIdPersona(id)));
+                default -> listaADevolver.add(new PersonNoStudentNoProfesor(per));
+            }
+        }
+        return listaADevolver;
     }
 
     @Override
-    public List<PersonaDtoOut> getAllThePeople() {
-        List<PersonaDtoOut> lista = new ArrayList<>();
-        personaRepository.findAll().forEach(p -> lista.add(new PersonaDtoOut(p)));
+    public List<PersonaDtoOutStudentProfesor> getPeopleByUsuarioAttribute(String usuario) {
+        List<Persona> personasRepository = personaRepository.findAll();
+        List<Persona> personasConEseUsuario = new ArrayList<>();
+        List<PersonaDtoOutStudentProfesor> listaADevolver = new ArrayList<>();
+        if (!personasRepository.isEmpty()) {
+            Stream<Persona> personaStream = personasRepository.stream();
+            personasConEseUsuario = personaStream.filter(person -> person.getUsuario().equals(usuario))
+                    .toList();
+        }
+        for (Persona per : personasConEseUsuario)
+            listaADevolver.add(new PersonNoStudentNoProfesor(per));
+        return listaADevolver;
+    }
+
+    @Override
+    public List<PersonaDtoOutStudentProfesor> getAllThePeople() {
+        List<PersonaDtoOutStudentProfesor> lista = new ArrayList<>();
+        personaRepository.findAll().forEach(p -> lista.add(new PersonNoStudentNoProfesor(p)));
+        return lista;
+    }
+
+    @Override
+    public List<PersonaDtoOutStudentProfesor> getAllThePeopleFull() {
+        List<PersonaDtoOutStudentProfesor> lista = new ArrayList<>();
+        personaRepository.findAll().forEach(p -> {
+            try {
+                lista.add(getPersonaByIdFull(p.getId_persona()));
+            } catch (EntityNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        });
         return lista;
     }
 
@@ -98,6 +206,6 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     private void lanzaUnprocessableEntityException(String message) throws UnprocessableEntityException {
-        throw new UnprocessableEntityException(new CustomError(new Date(System.currentTimeMillis()), 422, message));
+        throw new UnprocessableEntityException(message);
     }
 }

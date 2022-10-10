@@ -16,7 +16,7 @@ public class ControllerPut {
     private PersonaService personaService;
 
     @PutMapping(value = "/{id}")
-    public PersonaDtoOut actualizaPersona(@PathVariable("id") Integer id, @RequestBody PersonaDtoIn persona) throws UnprocessableEntityException, EntityNotFoundException {
+    public PersonaDtoOut actualizaPersona(@PathVariable("id") String id, @RequestBody PersonaDtoIn persona) throws UnprocessableEntityException, EntityNotFoundException {
         return personaService.modifyPersona(id,persona);
     }
 }
