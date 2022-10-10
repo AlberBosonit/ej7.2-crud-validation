@@ -8,6 +8,7 @@ import com.example.ej7.crudvalidation.persona.domain.Persona;
 import com.example.ej7.crudvalidation.persona.infraestructure.dto.*;
 import com.example.ej7.crudvalidation.persona.infraestructure.repository.PersonaRepository;
 import com.example.ej7.crudvalidation.profesor.domain.Profesor;
+import com.example.ej7.crudvalidation.profesor.infraestructure.dto.ProfesorDtoOutSimple;
 import com.example.ej7.crudvalidation.profesor.infraestructure.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

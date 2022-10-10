@@ -2,8 +2,10 @@ package com.example.ej7.crudvalidation.profesor.infraestructure.dto;
 
 import com.example.ej7.crudvalidation.profesor.domain.Profesor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class ProfesorDtoOutSimple extends ProfesorDtoOut {
 
     private String id_profesor;

@@ -1,15 +1,11 @@
 package com.example.ej7.crudvalidation.profesor.infraestructure.controllers;
 
-import com.example.ej7.crudvalidation.estudiante.domain.services.StudentService;
-import com.example.ej7.crudvalidation.estudiante.infraestructure.dto.StudentDtoOut;
-import com.example.ej7.crudvalidation.estudiante.infraestructure.dto.StudentDtoOutSimple;
 import com.example.ej7.crudvalidation.exceptions.EntityNotFoundException;
 import com.example.ej7.crudvalidation.profesor.domain.services.ProfesorService;
 import com.example.ej7.crudvalidation.profesor.infraestructure.dto.ProfesorDtoOut;
 import com.example.ej7.crudvalidation.profesor.infraestructure.dto.ProfesorDtoOutSimple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.io.FileNotFoundException;
 import java.util.List;
 

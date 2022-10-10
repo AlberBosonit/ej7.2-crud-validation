@@ -24,6 +24,4 @@ public interface PersonaService {
 
     List<PersonaDtoOutStudentProfesor> getAllThePeople();
     List<PersonaDtoOutStudentProfesor> getAllThePeopleFull();
-
-
 }

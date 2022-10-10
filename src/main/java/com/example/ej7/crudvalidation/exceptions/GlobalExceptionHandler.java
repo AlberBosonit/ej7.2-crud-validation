@@ -13,10 +13,10 @@ import java.util.Date;
 @Log
 public class GlobalExceptionHandler {
 
-    /*@ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
     public void generalExceptions(Exception e){
         log.info(e.getMessage());
-    }*/
+    }
 
     @ExceptionHandler(UnprocessableEntityException.class)
     public ResponseEntity<String> unprocessableEntityException(UnprocessableEntityException e) {

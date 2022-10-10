@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Localhost:8081" type="Application" factoryName="Application">
+    <envs>
+      <env name="server.port" value="8081" />
+      <env name="spring.datasource.url" value="jdbc:h2:file:~/ejercicio7.2ClienteProfesor" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="com.example.ej7.crudvalidation.Application" />
+    <module name="ej7.2-crud-validation" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
