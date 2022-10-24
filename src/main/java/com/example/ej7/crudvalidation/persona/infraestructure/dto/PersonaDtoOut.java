@@ -2,35 +2,37 @@ package com.example.ej7.crudvalidation.persona.infraestructure.dto;
 
 import com.example.ej7.crudvalidation.persona.domain.Persona;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class PersonaDtoOut extends PersonaDtoOutStudentProfesor{
 
-    private final String id_persona;
-    private final String usuario;
-    private final String name;
-    private final String surname;
-    private final String company_email;
-    private final String personal_email;
-    private final String city;
-    private final Boolean active;
-    private final Date created_date;
-    private final String imagen_url;
-    private final Date termination_date;
+    private String id_persona;
+    private String usuario;
+    private String name;
+    private String surname;
+    private String company_email;
+    private String personal_email;
+    private String city;
+    private Boolean active;
+    private Date created_date;
+    private String imagen_url;
+    private Date termination_date;
 
     public PersonaDtoOut(Persona persona) {
         id_persona = persona.getId_persona();
-        usuario = persona.getUsuario();
+        usuario = persona.getUsername();
         name = persona.getName();
         surname = persona.getSurname();
-        company_email = persona.getCompany_email();
-        personal_email = persona.getPersonal_email();
+        company_email = persona.getEmailcomp();
+        personal_email = persona.getEmailpers();
         city = persona.getCity();
         active = persona.getActive();
         created_date = persona.getCreated_date();
         imagen_url = persona.getImagen_url();
-        termination_date = persona.getTermination_date();
+        termination_date = persona.getFinish_date();
     }
 }
 

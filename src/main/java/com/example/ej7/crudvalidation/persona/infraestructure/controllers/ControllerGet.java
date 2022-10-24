@@ -34,6 +34,8 @@ public class ControllerGet {
                 personaService.getPeopleByUsuarioAttributeFull(usuario):
                 personaService.getPeopleByUsuarioAttribute(usuario);
     }
+
+    @CrossOrigin
     @GetMapping("/all")
     public List<PersonaDtoOutStudentProfesor> mostrarTodasPersonas(@RequestParam(name = "outputType",defaultValue = "simple") String ouputType) {
         return ouputType.equals("full")?

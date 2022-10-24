@@ -3,11 +3,13 @@ package com.example.ej7.crudvalidation.persona.infraestructure.dto;
 import com.example.ej7.crudvalidation.asignatura.domain.Subject;
 import com.example.ej7.crudvalidation.estudiante.domain.Student;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class PersonaDtoOutStudent extends PersonaDtoOutStudentProfesor{
 
     private String id_persona;
@@ -31,16 +33,16 @@ public class PersonaDtoOutStudent extends PersonaDtoOutStudentProfesor{
     public PersonaDtoOutStudent(Student student) {
 
         this.id_persona = student.getPersona().getId_persona();
-        this.usuario = student.getPersona().getUsuario();
+        this.usuario = student.getPersona().getUsername();
         this.name = student.getPersona().getName();
         this.surname = student.getPersona().getSurname();
-        this.company_email = student.getPersona().getCompany_email();
-        this.personal_email = student.getPersona().getPersonal_email();
+        this.company_email = student.getPersona().getEmailcomp();
+        this.personal_email = student.getPersona().getEmailpers();
         this.city = student.getPersona().getCity();
         this.active = student.getPersona().getActive();
         this.created_date = student.getPersona().getCreated_date();
         this.imagen_url = student.getPersona().getImagen_url();
-        this.termination_date = student.getPersona().getTermination_date();
+        this.termination_date = student.getPersona().getFinish_date();
         this.id_student = student.getId_student();
         this.num_hours_week = student.getNum_hours_week();
         this.coments = student.getComents();

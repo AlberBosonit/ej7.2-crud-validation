@@ -23,10 +23,10 @@ public class Persona {
     private String id_persona;
 
     @Column
-    private String usuario;
+    private String username;
 
     @Column
-    private String password;
+    private String passwd;
 
     @Column
     private String name;
@@ -35,10 +35,10 @@ public class Persona {
     private String surname;
 
     @Column
-    private String company_email;
+    private String emailcomp;
 
     @Column
-    private String personal_email;
+    private String emailpers;
 
     @Column
     private String city;
@@ -53,7 +53,7 @@ public class Persona {
     private String imagen_url;
 
     @Column
-    private Date termination_date;
+    private Date finish_date;
 
     @OneToOne(fetch = FetchType.LAZY,mappedBy = "persona",cascade = CascadeType.ALL) //La cascada = TODOS significa que, cuando borren a la persona, se va a borrar el estudiante que le apunta
     @JsonBackReference(value = "personaEstu")
@@ -68,16 +68,16 @@ public class Persona {
 
     public Persona(PersonaDtoIn personaIn) {
         id_persona = personaIn.getId_persona();
-        usuario = personaIn.getUsuario();
-        password = personaIn.getPassword();
+        username = personaIn.getUsuario();
+        passwd = personaIn.getPassword();
         name = personaIn.getName();
         surname = personaIn.getSurname();
-        company_email = personaIn.getCompany_email();
-        personal_email = personaIn.getPersonal_email();
+        emailcomp = personaIn.getCompany_email();
+        emailpers = personaIn.getPersonal_email();
         city = personaIn.getCity();
         active = personaIn.getActive();
         created_date = personaIn.getCreated_date();
         imagen_url = personaIn.getImagen_url();
-        termination_date = personaIn.getTermination_date();
+        finish_date = personaIn.getTermination_date();
     }
 }

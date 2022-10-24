@@ -5,10 +5,11 @@ import com.example.ej7.crudvalidation.estudiante.domain.Student;
 import com.example.ej7.crudvalidation.persona.domain.Persona;
 import com.example.ej7.crudvalidation.profesor.domain.Profesor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class StudentDtoOutFull extends StudentDtoOut{
 
     private Persona persona;

@@ -6,10 +6,7 @@ import com.example.ej7.crudvalidation.persona.domain.services.PersonaService;
 import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoIn;
 import com.example.ej7.crudvalidation.persona.infraestructure.dto.PersonaDtoOut;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value="/persona")
@@ -18,7 +15,8 @@ public class ControllerPost {
     @Autowired
     private PersonaService personaService;
 
-    @PostMapping
+    @CrossOrigin
+    @PostMapping("/addperson")
     public PersonaDtoOut insertPersona(@RequestBody PersonaDtoIn persona) throws UnprocessableEntityException {
         return personaService.addPersona(new Persona(persona));
     }

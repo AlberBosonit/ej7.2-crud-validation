@@ -8,12 +8,10 @@ import com.example.ej7.crudvalidation.persona.domain.Persona;
 import com.example.ej7.crudvalidation.persona.infraestructure.dto.*;
 import com.example.ej7.crudvalidation.persona.infraestructure.repository.PersonaRepository;
 import com.example.ej7.crudvalidation.profesor.domain.Profesor;
-import com.example.ej7.crudvalidation.profesor.infraestructure.dto.ProfesorDtoOutSimple;
 import com.example.ej7.crudvalidation.profesor.infraestructure.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -131,7 +129,7 @@ public class PersonaServiceImpl implements PersonaService {
         List<PersonaDtoOutStudentProfesor> listaADevolver = new ArrayList<>();
         if (!personasRepository.isEmpty()) {
             Stream<Persona> personaStream = personasRepository.stream();
-            personasConEseUsuario = personaStream.filter(person -> person.getUsuario().equals(usuario))
+            personasConEseUsuario = personaStream.filter(person -> person.getUsername().equals(usuario))
                     .toList();
         }
         for (Persona per : personasConEseUsuario) {
@@ -153,7 +151,7 @@ public class PersonaServiceImpl implements PersonaService {
         List<PersonaDtoOutStudentProfesor> listaADevolver = new ArrayList<>();
         if (!personasRepository.isEmpty()) {
             Stream<Persona> personaStream = personasRepository.stream();
-            personasConEseUsuario = personaStream.filter(person -> person.getUsuario().equals(usuario))
+            personasConEseUsuario = personaStream.filter(person -> person.getUsername().equals(usuario))
                     .toList();
         }
         for (Persona per : personasConEseUsuario)
@@ -183,19 +181,19 @@ public class PersonaServiceImpl implements PersonaService {
 
     private boolean checkPerson(Persona persona) throws UnprocessableEntityException {
 
-        if (persona.getUsuario() == null)
+        if (persona.getUsername() == null)
             lanzaUnprocessableEntityException("El usuario no puede ser nulo");
-        if (persona.getUsuario().length() > 10)
+        if (persona.getUsername().length() > 10)
             lanzaUnprocessableEntityException("El usuario no puede tener más de 10 caracteres.");
-        if (persona.getUsuario().length() < 6)
+        if (persona.getUsername().length() < 6)
             lanzaUnprocessableEntityException("El usuario no puede tener menos de 6 caracteres.");
-        if (persona.getPassword() == null)
+        if (persona.getPasswd() == null)
             lanzaUnprocessableEntityException("El password no puede ser nulo");
         if (persona.getName() == null)
             lanzaUnprocessableEntityException("El nombre no puede ser nulo");
-        if (persona.getCompany_email() == null)
+        if (persona.getEmailcomp() == null)
             lanzaUnprocessableEntityException("El email de la compañía no puede ser nulo");
-        if (persona.getPersonal_email() == null)
+        if (persona.getEmailpers() == null)
             lanzaUnprocessableEntityException("El email personal no puede ser nulo");
         if (persona.getCity() == null)
             lanzaUnprocessableEntityException("La ciudad no puede ser nula");

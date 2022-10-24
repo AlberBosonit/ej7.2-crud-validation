@@ -1,7 +1,6 @@
 package com.example.ej7.crudvalidation.profesor.domain.services;
 
-import com.example.ej7.crudvalidation.asignatura.domain.Subject;
-import com.example.ej7.crudvalidation.asignatura.infraestructure.dto.repository.SubjectRepository;
+import com.example.ej7.crudvalidation.asignatura.infraestructure.repository.SubjectRepository;
 import com.example.ej7.crudvalidation.estudiante.domain.Student;
 import com.example.ej7.crudvalidation.estudiante.infraestructure.repository.StudentRepository;
 import com.example.ej7.crudvalidation.exceptions.EntityNotFoundException;
@@ -106,7 +105,7 @@ public class ProfesorServiceImpl implements ProfesorService {
         List<ProfesorDtoOutSimple> profesoresConEseUsuario = new ArrayList<>();
         if (!profesors.isEmpty()) {
             Stream<Profesor> profesorStream = profesors.stream();
-            profesoresConEseUsuario = profesorStream.filter(p -> p.getPersona().getUsuario().equals(usuario))
+            profesoresConEseUsuario = profesorStream.filter(p -> p.getPersona().getUsername().equals(usuario))
                     .map(ProfesorDtoOutSimple::new).toList();
         }
         return profesoresConEseUsuario;

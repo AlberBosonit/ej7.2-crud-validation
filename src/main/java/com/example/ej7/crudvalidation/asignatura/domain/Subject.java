@@ -2,17 +2,12 @@ package com.example.ej7.crudvalidation.asignatura.domain;
 
 import com.example.ej7.crudvalidation.asignatura.infraestructure.dto.SubjectDtoIn;
 import com.example.ej7.crudvalidation.estudiante.domain.Student;
-import com.example.ej7.crudvalidation.profesor.domain.Profesor;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

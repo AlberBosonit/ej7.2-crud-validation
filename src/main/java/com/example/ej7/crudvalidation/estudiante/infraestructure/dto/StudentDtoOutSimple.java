@@ -3,11 +3,11 @@ package com.example.ej7.crudvalidation.estudiante.infraestructure.dto;
 import com.example.ej7.crudvalidation.asignatura.domain.Subject;
 import com.example.ej7.crudvalidation.estudiante.domain.Student;
 import lombok.Data;
-
-import java.util.ArrayList;
+import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class StudentDtoOutSimple extends StudentDtoOut{
 
     private String id_student;

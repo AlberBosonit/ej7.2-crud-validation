@@ -2,10 +2,9 @@ package com.example.ej7.crudvalidation.estudiante.domain.services;
 
 import com.example.ej7.crudvalidation.asignatura.domain.Subject;
 import com.example.ej7.crudvalidation.asignatura.infraestructure.dto.SubjectDtoInSubjects;
-import com.example.ej7.crudvalidation.asignatura.infraestructure.dto.repository.SubjectRepository;
+import com.example.ej7.crudvalidation.asignatura.infraestructure.repository.SubjectRepository;
 import com.example.ej7.crudvalidation.estudiante.domain.Student;
 import com.example.ej7.crudvalidation.estudiante.infraestructure.dto.StudentDtoIn;
-import com.example.ej7.crudvalidation.estudiante.infraestructure.dto.StudentDtoOut;
 import com.example.ej7.crudvalidation.estudiante.infraestructure.dto.StudentDtoOutFull;
 import com.example.ej7.crudvalidation.estudiante.infraestructure.dto.StudentDtoOutSimple;
 import com.example.ej7.crudvalidation.estudiante.infraestructure.repository.StudentRepository;
@@ -145,7 +144,7 @@ public class StudentServiceImpl implements StudentService {
         List<StudentDtoOutSimple> estudiantesConEseUsuario = new ArrayList<>();
         if (!estudianteRepository.isEmpty()) {
             Stream<Student> estudianteStream = estudianteRepository.stream();
-            estudiantesConEseUsuario = estudianteStream.filter(s -> s.getPersona().getUsuario().equals(usuario))
+            estudiantesConEseUsuario = estudianteStream.filter(s -> s.getPersona().getUsername().equals(usuario))
                     .map(StudentDtoOutSimple::new).toList();
         }
         return estudiantesConEseUsuario;

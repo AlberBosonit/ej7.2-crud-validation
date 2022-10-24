@@ -2,9 +2,11 @@ package com.example.ej7.crudvalidation.asignatura.infraestructure.dto;
 
 import com.example.ej7.crudvalidation.asignatura.domain.Subject;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class SubjectDtoOutSimple extends SubjectDtoOut {
 
     private String id_subject;

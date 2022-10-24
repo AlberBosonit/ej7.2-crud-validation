@@ -1,4 +1,4 @@
-package com.example.ej7.crudvalidation.asignatura.infraestructure.dto.repository;
+package com.example.ej7.crudvalidation.asignatura.infraestructure.repository;
 
 import com.example.ej7.crudvalidation.asignatura.domain.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;

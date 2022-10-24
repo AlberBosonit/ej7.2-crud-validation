@@ -1,23 +1,25 @@
 package com.example.ej7.crudvalidation.persona.infraestructure.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class PersonaDtoIn {
 
-    private final String id_persona;
-    private final String usuario;
+    private String id_persona;
+    private String usuario;
     private String password;
-    private final String name;
-    private final String surname;
-    private final String company_email;
-    private final String personal_email;
-    private final String city;
-    private final Boolean active;
-    private final Date created_date;
-    private final String imagen_url;
-    private final Date termination_date;
+    private String name;
+    private String surname;
+    private String company_email;
+    private String personal_email;
+    private String city;
+    private Boolean active;
+    private Date created_date;
+    private String imagen_url;
+    private Date termination_date;
 
 }
 

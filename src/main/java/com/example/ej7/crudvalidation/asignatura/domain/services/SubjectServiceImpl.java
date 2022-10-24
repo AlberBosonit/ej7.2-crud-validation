@@ -4,13 +4,11 @@ import com.example.ej7.crudvalidation.asignatura.domain.Subject;
 import com.example.ej7.crudvalidation.asignatura.infraestructure.dto.SubjectDtoIn;
 import com.example.ej7.crudvalidation.asignatura.infraestructure.dto.SubjectDtoOutFull;
 import com.example.ej7.crudvalidation.asignatura.infraestructure.dto.SubjectDtoOutSimple;
-import com.example.ej7.crudvalidation.asignatura.infraestructure.dto.repository.SubjectRepository;
+import com.example.ej7.crudvalidation.asignatura.infraestructure.repository.SubjectRepository;
 import com.example.ej7.crudvalidation.estudiante.domain.Student;
 import com.example.ej7.crudvalidation.estudiante.infraestructure.repository.StudentRepository;
 import com.example.ej7.crudvalidation.exceptions.EntityNotFoundException;
 import com.example.ej7.crudvalidation.exceptions.UnprocessableEntityException;
-import com.example.ej7.crudvalidation.profesor.domain.Profesor;
-import com.example.ej7.crudvalidation.profesor.infraestructure.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
@@ -78,7 +76,7 @@ public class SubjectServiceImpl implements SubjectService {
         List<SubjectDtoOutSimple> subjectsCursadasPorEseUsuario = new ArrayList<>();
         if (!estudianteRepository.isEmpty()) {
             for (Student student:estudianteRepository){
-                if (student.getPersona().getUsuario().equals(usuario)) {
+                if (student.getPersona().getUsername().equals(usuario)) {
                     List<Subject> listaAsig = student.getListaAsignaturas();
                     for (Subject asi : listaAsig)
                         subjectsCursadasPorEseUsuario.add(new SubjectDtoOutSimple(asi));

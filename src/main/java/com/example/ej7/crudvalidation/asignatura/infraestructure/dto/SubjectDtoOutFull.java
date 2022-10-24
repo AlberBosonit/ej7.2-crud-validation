@@ -2,13 +2,14 @@ package com.example.ej7.crudvalidation.asignatura.infraestructure.dto;
 
 import com.example.ej7.crudvalidation.asignatura.domain.Subject;
 import com.example.ej7.crudvalidation.estudiante.domain.Student;
-import com.example.ej7.crudvalidation.profesor.domain.Profesor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class SubjectDtoOutFull extends SubjectDtoOut {
 
     private String coments;

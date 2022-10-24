@@ -3,11 +3,13 @@ package com.example.ej7.crudvalidation.persona.infraestructure.dto;
 import com.example.ej7.crudvalidation.estudiante.domain.Student;
 import com.example.ej7.crudvalidation.profesor.domain.Profesor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class PersonaDtoOutProfesor extends PersonaDtoOutStudentProfesor {
 
     private String id_persona;
@@ -29,16 +31,16 @@ public class PersonaDtoOutProfesor extends PersonaDtoOutStudentProfesor {
 
     public PersonaDtoOutProfesor(Profesor profesor) {
         this.id_persona = profesor.getPersona().getId_persona();
-        this.usuario = profesor.getPersona().getUsuario();
+        this.usuario = profesor.getPersona().getUsername();
         this.name = profesor.getPersona().getName();
         this.surname = profesor.getPersona().getSurname();
-        this.company_email = profesor.getPersona().getCompany_email();
-        this.personal_email = profesor.getPersona().getPersonal_email();
+        this.company_email = profesor.getPersona().getEmailcomp();
+        this.personal_email = profesor.getPersona().getEmailpers();
         this.city = profesor.getPersona().getCity();
         this.active = profesor.getPersona().getActive();
         this.created_date = profesor.getPersona().getCreated_date();
         this.imagen_url = profesor.getPersona().getImagen_url();
-        this.termination_date = profesor.getPersona().getTermination_date();
+        this.termination_date = profesor.getPersona().getFinish_date();
         this.id_profesor = profesor.getId_profesor();
         this.coments = profesor.getComents();
         this.branch = profesor.getBranch();
